@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from  './containers/App'
+
 import 'tachyons';
+import { createStore, applyMiddleware } from 'redux';
+import { searchRobots } from './reducers';
+import { Provider, connect } from 'react-redux';
+import { createLogger } from 'redux-logger';
+
+const logger = createLogger();
+const store = createStore(searchRobots, applyMiddleware(logger));
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
