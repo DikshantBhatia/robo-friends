@@ -5,13 +5,18 @@ import reportWebVitals from './reportWebVitals';
 import App from  './containers/App'
 
 import 'tachyons';
-import { createStore, applyMiddleware } from 'redux';
-import { searchRobots } from './reducers';
-import { Provider, connect } from 'react-redux';
+import { createStore, applyMiddleware, combineReducers  } from 'redux';
+import { searchRobots, requestRobots } from './reducers';
+import { Provider, connect } from 'react-redux'
 import { createLogger } from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+
 
 const logger = createLogger();
-const store = createStore(searchRobots, applyMiddleware(logger));
+
+const rootReducers = combineReducers({requestRobots, searchRobots})
+
+const store = createStore(rootReducers, applyMiddleware(thunkMiddleware,  logger));
 
 ReactDOM.render(
   <React.StrictMode>
